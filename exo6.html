@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>JVS-INI: Exercice 06</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/syle.css" rel="stylesheet" type="text/css"/>
+        <script>
+            function init() {
+                var frm = document.querySelector("form");
+                frm.onsubmit = function (event) {
+                    /*          
+                     var nom = document.querySelector("#nom");
+                     var email = document.querySelector("#email");
+                     
+                     if (nom.value.trim() === "" || email.value.trim() === "") {
+                     alert("erreur de saisie");
+                     event.preventDefault();
+                     }
+                     
+                     */
+                    var ul = document.querySelector("#erreur");            
+                    ul.innerHTML = "";
+                    if (!this.checkValidity()) {
+                        var saisies = document.querySelectorAll("input:invalid");
+                        var msg = "";                      
+                        for (var i = 0; i < saisies.length; i++) {
+                            msg += "<li>" + saisies[i].name + ":" + saisies[i].validationMessage + "</li>";
+                        }
+                        ul.style.display = "block";
+                        ul.innerHTML = msg;
+                        event.preventDefault();
+                    } else {
+                        ul.style.display = "none";
+                    }
+                }
+            }
+            window.addEventListener("load", init);
+
+        </script>
+    </head>
+    <body>
+        <div id="page">
+            <fieldset>
+                <legend>Saisissez vos informations</legend>
+                <form novalidate>
+                    <div class="row">
+                        <label for="nom">Nom</label>
+                        <div class="control">
+                            <input type="text" id="nom" name="nom" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="email">Email</label>
+                        <div class="control">
+                            <input type="email" id="email" name="email" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="control offset">
+                            <input type="submit" value="Envoyer"/>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+            <ul id="erreur"></ul>
+        </div>
+    </body>
+</html>

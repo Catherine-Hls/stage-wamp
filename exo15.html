@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Exercice: exoXX</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/syle.css" rel="stylesheet" type="text/css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/lib/jquery-3.3.1.min.js"  type="text/javascript"></script>
+        <script src="js/lib/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/lib/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="js/i18n/messages_fr.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function () {
+                $.ajaxSetup({async:false});
+                
+                $('#menu').load('menu.html');
+                
+                $('.table').each(function(){
+                    $('#search').show();
+                });
+                $.validator.addMethod('telephone', function(value, element){
+                    regexp = /^\d{10}$/;
+                    if (value.trim() === '') return true;
+                    return regexp.test(value);
+                }, 'Le numéro de téléphone est invalide');
+                $('#form1').validate ({
+                    rules:{
+                        monemail: {
+                            'required': true,
+                            'email': true,
+                            'maxlength': 100,
+                            'minlength': 10
+                        },
+                        montelephone: {
+                            'required': true,
+                            'telephone': true
+                        }
+                    }
+                });
+            });
+        </script>
+        <style>
+            #search {
+                display: none
+            }
+            fieldset {
+                max-width: 600px;
+                margin: 20px auto;
+            }
+            .form-row {
+                margin-bottom: 10px !important;
+            }
+            .error {
+                color:red;
+                font-style: italic;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="page">
+            <div id="menu"></div>
+            <fieldset>
+                <legend>Veuillez saisir vos informations</legend>
+                <form id="form1" method="post" action="#" role="form">
+                    <div class="form-row">
+                        <label class="control-label col-sm-2" for="mon_email">Email :</label>
+                        <div class="col-sm-10"> 
+                            <input type="text" class="form-control" id="mon_email" name="monemail" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="control-label col-sm-2" for="mon_telephone">Téléphone:</label>
+                        <div class="col-sm-10"> 
+                            <input type="text" id="mon_telephone" name="montelephone" class="form-control"/>
+                        </div>
+                    </div>
+                    <!– autres contrôles -->
+                    <div class="form-group"> 
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" id="btn_submit" class="btn btn-success">Envoyer</button>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+    </body>
+</html>
